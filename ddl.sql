@@ -101,7 +101,6 @@ CREATE TABLE IF NOT EXISTS `reporters` (
   `updated_id` int NOT NULL COMMENT '更新者',
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日時',
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`upload_id_title`) REFERENCES `uploads` (`id`),
   FOREIGN KEY (`upload_id_pc`) REFERENCES `uploads` (`id`),
   FOREIGN KEY (`upload_id_sp`) REFERENCES `uploads` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='記事記者';
@@ -124,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `games` (
 
 CREATE TABLE IF NOT EXISTS `game_details` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `game_id` varchar(32) NOT NULL COMMENT 'パチンコスロット id',
+  `game_id` int NOT NULL COMMENT 'パチンコスロット id',
   `title` varchar(255) NOT NULL COMMENT 'タイトル',
   `subtitle` varchar(255) NOT NULL COMMENT 'サブタイトル',
   `head` text DEFAULT NULL COMMENT 'HTMLヘッダー',
@@ -149,9 +148,9 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `series_id` int NOT NULL COMMENT 'シリーズ id',
   `source_id` int NOT NULL COMMENT '出稿元 id',
   `is_active` tinyint(1) NOT NULL DEFAULT '1' COMMENT '公開フラグ',
-  `public_at` datetime NOT NULL DEFAULT COMMENT '公開開始日日時',
-  `start_at` datetime NOT NULL DEFAULT COMMENT '開始日',
-  `ended_at` datetime NOT NULL DEFAULT '9999-12-31 00:00:00' COMMENT '公開終了日時',
+  `public_at` datetime NOT NULL COMMENT '公開開始日日時',
+  `start_at` datetime NOT NULL COMMENT '開始日',
+  `ended_at` datetime NOT NULL DEFAULT '9999-12-31 00:00:00' COMMENT '終了日時',
   `created_id` int NOT NULL COMMENT '作成者',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '作成日時',
   `updated_id` int NOT NULL COMMENT '更新者',
@@ -190,9 +189,9 @@ CREATE TABLE IF NOT EXISTS `presses` (
   `source_id` int NOT NULL COMMENT '出稿元 id',
   `url_prefix` varchar(64) NOT NULL COMMENT '第1階層',
   `name` varchar(255) NOT NULL COMMENT '記事名',
-  `public_at` datetime NOT NULL DEFAULT COMMENT '公開開始日日時',
-  `start_at` datetime NOT NULL DEFAULT COMMENT '開始日',
-  `ended_at` datetime NOT NULL DEFAULT '9999-12-31 00:00:00' COMMENT '公開終了日時',
+  `public_at` datetime NOT NULL COMMENT '公開開始日日時',
+  `start_at` datetime NOT NULL COMMENT '開始日',
+  `ended_at` datetime NOT NULL DEFAULT '9999-12-31 00:00:00' COMMENT '終了日時',
   `created_id` int NOT NULL COMMENT '作成者',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '作成日時',
   `updated_id` int NOT NULL COMMENT '更新者',
@@ -230,9 +229,9 @@ CREATE TABLE IF NOT EXISTS `specials` (
   `name` varchar(255) NOT NULL COMMENT '特集名',
   `memo` text DEFAULT NULL COMMENT 'メモ',
   `is_active` tinyint(1) NOT NULL DEFAULT '1' COMMENT '公開フラグ',
-  `public_at` datetime NOT NULL DEFAULT COMMENT '公開開始日日時',
-  `start_at` datetime NOT NULL DEFAULT COMMENT '開始日',
-  `ended_at` datetime NOT NULL DEFAULT '9999-12-31 00:00:00' COMMENT '公開終了日時',
+  `public_at` datetime NOT NULL COMMENT '公開開始日日時',
+  `start_at` datetime NOT NULL COMMENT '開始日',
+  `ended_at` datetime NOT NULL DEFAULT '9999-12-31 00:00:00' COMMENT '終了日時',
   `created_id` int NOT NULL COMMENT '作成者',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '作成日時',
   `updated_id` int NOT NULL COMMENT '更新者',
@@ -260,7 +259,7 @@ CREATE TABLE IF NOT EXISTS `special_contents` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='特集コンテンツ';
 
 CREATE TABLE IF NOT EXISTS `carousel_contents` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` varchar(32) NOT NULL,
   `name` varchar(255) NOT NULL COMMENT 'カルーセルコンテンツ名',
   `public_started_at` datetime NOT NULL COMMENT '公開開始日時',
   `public_ended_at` datetime NOT NULL DEFAULT '9999-12-31 00:00:00' COMMENT '公開終了日時',
